@@ -13,7 +13,7 @@ services:
           - cm-net
   api:
     build:
-      context: ./HotMaps-toolbox-service/api
+      context: ./api
       dockerfile: dockerfiles/api/Dockerfile
     expose:
           - 80
@@ -31,8 +31,8 @@ services:
         - cm-net
         - backend
     volumes:
-        - /var/tmp:/var/tmp
-        - /var/hotmaps/repositories:/var/hotmaps/repositories
+        - /home/iig/hotmaps/tmp:/var/tmp
+        - /home/iig/hotmaps/repositories:/var/hotmaps/repositories
 
   redis:
     image: redis
