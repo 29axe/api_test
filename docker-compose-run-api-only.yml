@@ -48,4 +48,4 @@ networks:
     driver: bridge
     internal: true
   cm-net:
-driver: bridge
+    driver: bridge
