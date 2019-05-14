@@ -82,6 +82,15 @@ def getGenerationMixColor(value):
 
     raise Exception(msg)
 
+def get_result_formatted(name='not_defined', value=0, unit='unit'):
+    return {
+        'name': name,
+        'value': value,
+        'unit': unit
+    }
+
+
+
 def generate_geotif_name(directory):
     filename = generate_file(directory, '.tif')
     return filename
@@ -209,6 +218,12 @@ def force_decode(string, codecs=['utf8', 'cp1252']):
             return string.decode(i)
         except UnicodeDecodeError:
             pass
+def from_dict_to_unique_array(results,key):
+    response = []
+    for value in results:
+        ze_value = value[key]
+        response.append(ze_value)
+    return response
 
 def sampling_data(listValues):
 	# Get number of values
@@ -221,7 +236,7 @@ def sampling_data(listValues):
 			'X':n+1,
 			'Y':listValues[n]
 		})
-    
+
 	# Sampling of the values
 	cut1 = int(numberOfValues*constants.POINTS_FIRST_GROUP_PERCENTAGE)
 	cut2 = int(cut1+(numberOfValues*constants.POINTS_SECOND_GROUP_PERCENTAGE))

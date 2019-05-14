@@ -151,4 +151,3 @@ def get_indicator_as_query(indic, layer_table_name, layer, scale_level_name, sca
 				
 def check_if_agg_or_dis_method(layer,scale_level):
 	return 'level_of_data' in layersData[layer] and NUTS_LAU_LEVELS[layersData[layer]['level_of_data']] < NUTS_LAU_LEVELS[scale_level]
-	 
