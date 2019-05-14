@@ -1,0 +1,55 @@
+version: "3"
+services:
+  rabbit:
+      hostname: rabbit
+      image: rabbitmq:latest
+      environment:
+          - RABBITMQ_DEFAULT_USER=admin
+          - RABBITMQ_DEFAULT_PASS=mypass
+      ports:
+          - "5672:5672"
+      networks:
+            - cm-net
+  api:
+    build:
+      context: ./api
+      dockerfile: dockerfiles/Dockerfile
+    restart: always
+    ports:
+     - "5000:5000"
+    links:
+         - rabbit
+         - redis
+    depends_on:
+      - redis
+    networks:
+      - cm-net
+    volumes:
+    - /var/tmp:/var/tmp
+    - /var/hotmaps/repositories:/var/hotmaps/repositories
+
+  monitor:
+    build:
+      context: ./api
+      dockerfile: dockerfiles/Dockerfile_flower
+    ports:
+     - "9090:5555"
+    entrypoint: flower
+    command:  -A celery_worker.celery --port=5555 --broker=amqp://admin:mypass@rabbit:5672/
+    depends_on:
+      - redis
+      - rabbit
+    networks:
+      - cm-net
+  redis:
+    image: redis
+    networks:
+          - cm-net
+networks:
+  cm-net:
+    driver: bridge
+volumes:
+  static-content:
+
+
+
