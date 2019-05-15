@@ -16,8 +16,7 @@ node {
 
   stage('Test') {
     // run API tests
-    sh '''
-      #!/bin/bash -e -x
+    sh '''#!/bin/bash
       export WORKSPACE=`pwd`
       virtualenv testenv -p /usr/bin/python
       source testenv/bin/activate
