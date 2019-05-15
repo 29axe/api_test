@@ -40,8 +40,9 @@ RUN apt-get update \
     ca-certificates \
     gcc \
     git \
+    libpq-dev python-dev \
     && apt-get autoremove \
-    && apt-get clean
+    && apt-get clean 
 
 
 
