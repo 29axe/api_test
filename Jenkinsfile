@@ -20,7 +20,7 @@ node {
       export WORKSPACE=`pwd`
       virtualenv testenv -p /usr/bin/python
       source testenv/bin/activate
-      pip install -U pytest
+      pip install -U pytest 
       mkdir pytest_reports
       pytest --junitxml=pytest_reports/results.xml /pytest_suit/
     '''
