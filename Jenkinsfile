@@ -24,6 +24,9 @@ node {
       mkdir pytest_reports
       pytest --junitxml=pytest_reports/results.xml pytest_suit/
     '''
+    // stop services
+    sh 'docker-compose down' // --rmi all ? 
+
   }
 }
 
