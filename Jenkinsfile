@@ -7,32 +7,35 @@ node {
   }
     
   stage('Build') {
-    sh 'docker-compose -f docker-compose-run-api-only.yml up -d --build'
-    // let some time for the server (API) to start
-    sleep 10
-    // run script that checks if the API is reachable
-    sh './online_status.sh'
+    try {
+      sh 'docker-compose -f docker-compose-run-api-only.yml up -d --build'
+      // let some time for the server (API) to start
+      sleep 10
+      // run script that checks if the API is reachable
+      sh './online_status.sh'
+    }
+    catch (error) {
+      // stop services
+      sh 'docker-compose down' // --rmi all ? 
+      throw
+    }
   }
 
   stage('Test') {
-    // run API tests
-    sh '''#!/bin/bash
-      export WORKSPACE=`pwd`
-      virtualenv testenv -p /usr/bin/python3
-      source testenv/bin/activate
-      pip install -U pytest requests
-      mkdir pytest_reports
-      pytest --junitxml=pytest_reports/results.xml pytest_suit/
-    '''
-  }
-  
-  post {
-    always {
-      // stop services
-      sh 'docker-compose down' // --rmi all ? 
+    try {
+      // run API tests
+      sh '''#!/bin/bash
+        export WORKSPACE=`pwd`
+        virtualenv testenv -p /usr/bin/python3
+        source testenv/bin/activate
+        pip install -U pytest requests
+        mkdir pytest_reports
+        pytest --junitxml=pytest_reports/results.xml pytest_suit/
+      '''
     }
-    failure {
-      // ... 
+    finally {
+      // stop services
+      sh 'docker-compose -f docker-compose-run-api-only.yml down' // --rmi all ? 
     }
   }
 }
