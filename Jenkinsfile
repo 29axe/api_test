@@ -2,7 +2,7 @@ node {
   stage('Init') {
     checkout scm
     sh 'cp /home/jenkins/hotmaps/secrets.py ./api/app/secrets.py'
-    sh 'cp -R /home/jenkins/hotmaps/pytest_suit .'
+    sh 'cp -Rf /home/jenkins/hotmaps/pytest_suit .'
     sh 'cp /home/jenkins/hotmaps/online_status.sh .'
   }
     
