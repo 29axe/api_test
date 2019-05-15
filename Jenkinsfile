@@ -34,7 +34,7 @@ node {
     }
     finally {
       // stop services
-      sh 'docker-compose down' // --rmi all ? 
+      sh 'docker-compose -f docker-compose-run-api-only.yml down' // --rmi all ? 
     }
   }
 }
