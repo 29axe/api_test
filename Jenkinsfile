@@ -14,10 +14,10 @@ node {
       // run script that checks if the API is reachable
       sh './online_status.sh'
     }
-    catch (error) {
+    catch (exception) {
       // stop services
       sh 'docker-compose down' // --rmi all ? 
-      throw
+      throw exception
     }
   }
 
