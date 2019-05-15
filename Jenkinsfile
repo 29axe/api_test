@@ -18,7 +18,7 @@ node {
     // run API tests
     sh '''#!/bin/bash
       export WORKSPACE=`pwd`
-      virtualenv testenv -p /usr/bin/python
+      virtualenv testenv -p /usr/bin/python3
       source testenv/bin/activate
       pip install -U pytest requests
       mkdir pytest_reports
