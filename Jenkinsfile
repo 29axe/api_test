@@ -22,7 +22,7 @@ node {
       source testenv/bin/activate
       pip install -U pytest 
       mkdir pytest_reports
-      pytest --junitxml=pytest_reports/results.xml /pytest_suit/
+      pytest --junitxml=pytest_reports/results.xml pytest_suit/
     '''
   }
 }
