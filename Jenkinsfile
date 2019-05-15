@@ -17,6 +17,7 @@ node {
     catch (error) {
       // stop services
       sh 'docker-compose down' // --rmi all ? 
+      throw exception
     }
   }
 
