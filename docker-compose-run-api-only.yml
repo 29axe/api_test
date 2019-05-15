@@ -16,11 +16,8 @@ services:
       context: ./api
       dockerfile: dockerfiles/api/Dockerfile
     expose:
-          - 80
+          - 5000
     restart: always
-    external_links:
-          - postgis-database:postgis
-
     links:
          - rabbit
          - redis
