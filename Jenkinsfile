@@ -12,12 +12,18 @@ node {
     sleep 10
     // run script that checks if the API is reachable
     sh './online_status.sh'
-    
-      
   }
 
   stage('Test') {
-    
+    // run API tests
+    sh '''
+      export WORKSPACE=`pwd`
+      virtualenv testenv -p /usr/bin/python
+      source testenv/bin/activate
+      pip install -U pytest
+      mkdir pytest_reports
+      pytest --junitxml=pytest_reports/results.xml /pytest_suit/
+    '''
   }
 }
 
