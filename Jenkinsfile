@@ -49,6 +49,8 @@ node {
       sshagent(['sshhotmapsdev']) {
         sh 'cd'
         sh 'ssh -o StrictHostKeyChecking=no -l iig hotmapsdev.hevs.ch "touch \$COMMIT_ID"'
+        //sh 'cd /var/hotmaps'
+        //sh 'ssh -o StrictHostKeyChecking=no -l iig hotmapsdev.hevs.ch "./deploy_backend.sh \$COMMIT_ID"'
       }
     } else if (env.BRANCH_NAME == 'master') {
       echo "Deploying to PROD platform"
