@@ -1,4 +1,5 @@
 node {
+  properties([disableConcurrentBuilds()])
   stage('Init') {
     checkout scm
     sh 'cp /home/jenkins/hotmaps/secrets.py ./api/app/secrets.py'
@@ -16,7 +17,7 @@ node {
     }
     catch (error) {
       // stop services
-      sh 'docker-compose down' // --rmi all ? 
+      sh 'docker-compose -f docker-compose-run-api-only.yml down' // --rmi all ? 
       throw exception
     }
   }
